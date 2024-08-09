@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{/admin/layout/layout::layout(~{::title}, ~{::#main}, ~{::#jquery})}">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Thống kê khung thời gian bán hàng</title>
+</head>
+
+<body>
+<div id="main">
+    <!-- DataTables Example -->
+    <div class="card shadow mb-4">
+        <div class="card-header d-flex">
+            <div class="col-md-12">
+                <h3 class="m-0 font-weight-bold text-primary">Thống kê khung thời gian bán hàng</h3>
+            </div>
+        </div>
+        <div class="card-body">
+            <form role="form" method="post" id="form_genderConsumption">
+                <div class="panel-body my-4">
+                    <div class="row">
+                        <div class="col-md-5 row">
+                            <label class="col-md-4 font-weight-bold">Khung giờ:</label>
+                            <select class="col-md-6" id="timeFrame" name="timeFrame">
+                                <option value="0,0" selected>Tất cả</option>
+                                <option value="6,10">Buổi sáng</option>
+                                <option value="11,13">Buổi trưa</option>
+                                <option value="14,18">Buổi chiều</option>
+                            </select>
+                        </div>
+                        <div class="col-md-5 row">
+                            <label class="col-md-4 font-weight-bold">Sản phẩm:</label>
+                            <select class="col-md-6" id="productName" name="productName">
+                                <option value="" selected>Tất cả</option>
+                                <option value="Xoài">Xoài</option>
+                                <option value="Bánh tráng">Bánh tráng</option>
+                                <option value="Sữa đậu nành">Sữa đậu nành</option>
+                                <option value="Snack">Snack</option>
+                                <option value="Trà bí đao">Trà bí đao</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="my-3"></div>
+                    <div class="row">
+                        <div class="col-md-5 row">
+                            <label class="col-md-4 font-weight-bold">Ngày bắt đầu:</label>
+                            <input type="date" class="col-md-6" id="dateStart" name="dateStart" style="height: 65%">
+                        </div>
+                        <div class="col-md-5 row">
+                            <label class="col-md-4 font-weight-bold">Ngày kết thúc:</label>
+                            <input type="date" class="col-md-6" id="dateEnd" name="dateEnd" style="height: 65%">
+                        </div>
+                        <div class="col-md-2">
+                            <button class="btn btn-info" id="filter_timeFrame">Lọc</button>
+                        </div>
+                    </div>
+
+                </div>
+            </form>
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                    <tr>
+                        <th>Khung giờ</th>
+                        <th>Số lượng bán</th>
+                        <th>Tổng doanh thu</th>
+                        <th>Phần trăm trên tổng số bán</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <!-- Data will be populated here by DataTables -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="card-footer">
+            <div class="total-revenue" style="text-align: left;">
+                <p>
+                    <strong>Tổng doanh thu: <span id="totalRevenue">0 đ</span></strong><br>
+                    <strong>Tổng sản phẩm: <span id="totalProduct">0</span></strong>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="jquery">
+    <script th:src="@{/js/salesTimeFrame.js}"></script>
+</div>
+</body>
+
+</html>
+

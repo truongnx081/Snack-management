@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{/admin/layout/layout::layout(~{::title}, ~{::#main}, ~{::#jquery})}">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Thống kê số lượng sản phẩm bán theo khách hàng</title>
+</head>
+
+<body>
+<div id="main">
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-header d-flex">
+            <div class="col-md-12">
+                <h3 class="m-0 font-weight-bold text-primary">Số lượng sản phẩm bán theo khách hàng</h3>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                    <tr>
+                        <th>STT</th>
+                        <th>Tên khách hàng</th>
+                        <th>Số lượng đơn hàng</th>
+                        <th>Tổng số lượng sản phẩm</th>
+                        <th>Tổng giá trị đơn hàng</th>
+<!--                        <th>Sản phẩm mua nhiều nhất</th>-->
+                        <th>Ngày mua hàng gần nhất</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <!-- Data will be populated here by DataTables -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="card-footer">
+            <div class="total-price" style="text-align: left;">
+                <p>
+                    <strong>Tổng doanh thu: <span id="totalPrice">0 đ</span></strong>
+                    <br>
+                    <strong>Tổng số lượng sản phẩm bán được: <span id="totalProduct">0</span></strong>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="jquery">
+    <script>
+        $(document).ready(function () {
+            // Nếu DataTable đã được khởi tạo, hãy hủy khởi tạo trước khi tiếp tục
+            if ($.fn.DataTable.isDataTable('#dataTable')) {
+                $('#dataTable').DataTable().clear().destroy();
+            }
+
+            // Khởi tạo DataTable
+            const table = $('#dataTable').DataTable({
+                ajax: {
+                    url: '/honeyshop/api/report/top-by-value',
+                    dataSrc: function (json) {
+                        let totalPrice = 0;
+                        let totalProduct = 0;
+                        json.forEach(item => {
+                            totalPrice += item.totalOrderValue || 0;
+                            totalProduct += parseFloat(item.totalQuantity) || 0;
+                        });
+
+                        $('#totalPrice').text(formatCurrencyVND(totalPrice));
+                        $('#totalProduct').text(totalProduct);
+
+                        return json.map((item, index) => [
+                            index + 1,
+                            item.customerName || 'N/A',
+                            item.orderCount || 0,
+                            item.totalQuantity || 0,
+                            item.totalOrderValue ? formatCurrencyVND(item.totalOrderValue): '0 đ',
+                            // item.mostPurchasedProduct || 'N/A',
+                            item.lastOrderDate ? new Date(item.lastOrderDate).toLocaleDateString('vi-VN') : 'N/A'
+                        ]);
+                    }
+                },
+                columns: [
+                    { title: 'STT' },
+                    { title: 'Tên khách hàng' },
+                    { title: 'Số lượng đơn hàng' },
+                    { title: 'Tổng số lượng sản phẩm' },
+                    { title: 'Tổng giá trị đơn hàng' },
+                    { title: 'Thời gian mua hàng' }
+                ],
+                processing: true,
+                serverSide: false,
+                paging: true,
+                searching: true,
+                ordering: true,
+                info: true
+            });
+            table.on('search.dt', function () {
+                var info = table.page.info();
+                $('#totalUser').text(info.recordsDisplay);
+            });
+        });
+
+
+        // Định dạng tiền tệ
+        function formatCurrencyVND(amount) {
+            return new Intl.NumberFormat('vi-VN', {
+                style: 'currency',
+                currency: 'VND'
+            }).format(amount);
+        }
+    </script>
+</div>
+</body>
+
+</html>

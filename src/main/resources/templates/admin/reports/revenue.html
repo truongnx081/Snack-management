@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{/admin/layout/layout::layout(~{::title}, ~{::#main}, ~{::#jquery})}">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Danh thu</title>
+</head>
+<style>
+    /*.card-header {*/
+    /*    display: flex;*/
+    /*    justify-content: space-between;*/
+    /*    align-items: center;*/
+    /*}*/
+</style>
+<body>
+<div id="main">
+    <!-- DataTables Example -->
+    <div class="card shadow mb-4">
+        <div class="card-header">
+            <h3 class="m-0 font-weight-bold text-primary">Doanh thu</h3>
+            <form id="exportForm">
+                <button type="button" id="exportButton"
+                        class="btn btn-custom" style="margin-left: 900px;margin-top: -50px;">
+                    <i class="fas fa-download fa-sm text-white-50"></i>
+                    Xuất excel</button>
+            </form>
+        </div>
+        <div class="card-body">
+            <form role="form" method="post" id="form_revenue">
+                <div class="panel-body my-4">
+                    <div class="row">
+                        <div class="col-md-6 row">
+                            <label class="col-md-4 font-weight-bold">Ngày bắt đầu:</label>
+                            <input type="date" class="col-md-6" id="dateStart" name="dateStart" style="height: 95%">
+                        </div>
+                        <div class="col-md-6 row">
+                            <label class="col-md-4 font-weight-bold">Ngày kết thúc:</label>
+                            <input type="date" class="col-md-6" id="dateEnd" name="dateEnd" style="height: 95%">
+                        </div>
+                    </div>
+                    <div class="my-3"></div>
+                    <div class="row">
+                        <div class="col-md-6 row">
+                            <label class="col-md-4 font-weight-bold">Sản phẩm:</label>
+                            <select class="col-md-6" id="productName" name="productName">
+                                <option value="" selected>Tất cả</option>
+                                <option value="Xoài">Xoài</option>
+                                <option value="Bánh tráng">Bánh tráng</option>
+                                <option value="Sữa đậu nành">Sữa đậu nành</option>
+                                <option value="Snack">Snack</option>
+                                <option value="Trà bí đao">Trà bí đao</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <button class="btn btn-info" id="filter_revenue">Lọc</button>
+                        </div>
+                    </div>
+
+                </div>
+            </form>
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                    <tr>
+                        <th>STT</th>
+                        <th>Tên sản phẩm</th>
+                        <th>Số lượng</th>
+                        <th>Đơn giá</th>
+                        <th>Doanh thu</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <!-- Data will be populated here by DataTables -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="card-footer">
+            <div class="total-revenue" style="text-align: left;">
+                <p>
+                    <strong>Tổng doanh thu: <span id="totalRevenue">0 đ</span></strong><br>
+                    <strong>Tổng số lượng sản phẩm bán được: <span id="totalProduct">0</span></strong>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="jquery">
+    <script th:src="@{/js/revenue.js}"></script>
+</div>
+</body>
+
+</html>

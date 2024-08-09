@@ -1,0 +1,104 @@
+<div th:fragment="script">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <script type="text/javascript">
+        // Sử dụng Toastify để hiển thị thông báo
+        function showToast(message, duration = 3000) {
+            Toastify({
+                text: message,
+                duration: duration
+            }).showToast();
+        }
+    </script>
+    <!--     Bootstrap core JavaScript-->
+    <script th:src="@{/vendor/jquery/jquery.min.js}"></script>
+    <script th:src="@{/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script th:src="@{/vendor/jquery-easing/jquery.easing.min.js}"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script th:src="@{/js/sb-admin-2.min.js}"></script>
+
+    <!-- Page level plugins -->
+    <script th:src="@{/vendor/datatables/jquery.dataTables.min.js}"></script>
+    <script th:src="@{/vendor/datatables/dataTables.bootstrap4.min.js}"></script>
+
+    <!-- Page level custom scripts -->
+    <script th:src="@{/js/demo/datatables-demo.js}"></script>
+
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+
+    <script>
+        $(document).ready(function () {
+            $("#addUser").click(function () {
+                $("#addUserPanel").fadeIn(); // Show the panel
+                $(".create").show();
+                $(".update").hide();
+            });
+
+            $("#closePanelBtn").click(function () {
+                $("#addUserPanel").fadeOut(); // Hide the panel
+            });
+
+            // Optionally close the panel when clicking outside of it
+            $(window).click(function (event) {
+                if (event.target.id === "addUserPanel") {
+                    $("#addUserPanel").fadeOut(); // Hide the panel
+                }
+            });
+        });
+
+        // Chọn hình
+        $("#img").change((event) => {
+            var file = event.target.files[0]; // Chọn file đầu tiên trong các file đã chọn
+            console.log(event)
+            if (file) {
+                var reader = new FileReader(); // Tạo 1 đối tượng reader để đọc nội dung của tệp
+                reader.onload = (e) => {
+                    $('#chon-anh').html('<img src = "' + e.target.result + '" alt="Ảnh đã chọn" style="width: 100%; height: 100%">');
+                }
+                reader.readAsDataURL(file); // Đọc tệp dưới dạng URL data
+
+            }
+            // event.target.value = null;
+        })
+
+        // Định dạng tiền tệ
+        function formatCurrencyVND(amount) {
+            return new Intl.NumberFormat('vi-VN', {
+                style: 'currency',
+                currency: 'VND'
+            }).format(amount);
+        }
+
+
+        // function loadPage(urls, method){
+        //     // var token = localStorage.getItem('token');
+        //     // if (!token) {
+        //         // Nếu không có token, chuyển hướng về trang đăng nhập
+        //         // window.location.href = '/4men/dang-nhap';
+        //     // } else {
+        //         $.ajax({
+        //             url: urls,
+        //             method: method,
+        //             // contentType: "application/json",
+        //             // dataType: "json",
+        //             // headers: {
+        //             //     'Authorization': 'Bearer ' + token
+        //             // },
+        //             success: function (response) {
+        //                 console.log(response)
+        //                 $('#main').html(response);
+        //             },
+        //             error: function (e) {
+        //                 console.log('Token verification error: ' + e.message);
+        //                 // Chuyển hướng về trang đăng nhập nếu token không hợp lệ
+        //                 // window.location.href = '/4men/dang-nhap';
+        //                 // console.log("lỗi")
+        //             }
+        //         });
+        //     // }
+        // }
+    </script>
+</div>

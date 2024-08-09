@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+    th:replace="~{/admin/layout/layout::layout(~{::title}, ~{::#main}, ~{::#jquery})}">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Tạo đơn hàng</title>
+</head>
+
+<body>
+    <div id="main">
+        <!-- DataTales Example -->
+        <div class="card shadow mb-4">
+            <div class="card-header d-flex">
+                <div class="col-md-12">
+                    <h3 class="m-0 font-weight-bold text-primary">Tạo đơn hàng</h3>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <div class="col-lg-12">
+                        <form role="form" method="post" id="form_order" enctype="multipart/form-data">
+                            <div class="panel-body row">
+                                <div class="col-md-6">
+                                    <label for="fullname" class="col-md-4">Tên người nhận: </label>
+                                    <input type="text" name="fullname" id="fullname" placeholder="Họ và tên"
+                                        class="col-md-6" style="width: 100%; height: auto;">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="phone" class="col-md-4">Số điện thoại: </label>
+                                    <input type="number" name="phone" id="phone" placeholder="Số điện thoại"
+                                        style="width: 100%;" class="col-md-6" min="0">
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="row" style="margin-left: 2px">
+                                        <label class="col-md-4">Giới tính: </label>
+                                        <div class="col-md-6">
+                                            <input type="radio" name="gender" id="male" value="true" checked>
+                                            <label for="male">Nam</label>
+                                            <input type="radio" name="gender" id="female" value="false">
+                                            <label for="female">Nữ</label> <br>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="age" class="col-md-4">Tuổi: </label>
+                                    <input type="number" name="age" id="age" placeholder="Tuổi ?"
+                                           class="col-md-6" style="width: 100%; height: auto;">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <button class="btn btn-success" id="addUser">Chọn sản phẩm</button>
+            </div>
+            <!-- End card body -->
+
+            <!-- Cart -->
+            <div class="container">
+                <div class="form-title">Giỏ hàng của bạn</div>
+                <div class="d-flex justify-content-center">
+                    <div class="col-lg-12">
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="dataTable1" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th>Tên sản phẩm</th>
+                                            <th>Hình ảnh</th>
+                                            <th>Giá</th>
+                                            <th>Số lượng</th>
+                                            <th>Thành tiền</th>
+                                            <th>Thao tác</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="cartList">
+                                        <tr style="display: none">
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="total-price" style="text-align: left;">
+                    <p><strong style="font-size: x-large">Tổng tiền: <span id="totalPrice">0 ₫</span></strong>
+                        <div style="float: right; margin-right: 50px">
+                            <button href="" class="btn btn-danger me-3" id="huy-hon-hang"
+                                    onclick="removeTheCart()">XÓA TẤT CẢ</button>
+                            <button href="" class="btn btn-info"
+                                    id="dat-hang">CẬP NHẬT</button>
+                        </div>
+                    </p>
+                </div>
+            </div>
+            <!-- End Cart -->
+        </div>
+
+        <!-- Form add user-->
+        <div id="addUserPanel" class="hidden">
+            <div class="panel-content" style="margin: 0 auto !important;">
+                <span id="closePanelBtn">&times;</span>
+                <div class="form-title">Danh sách sản phẩm</div>
+                <div class="d-flex justify-content-center">
+                    <div class="col-lg-12">
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th>STT</th>
+                                            <th>Tên sản phẩm</th>
+                                            <th>Hình ảnh</th>
+                                            <th>Giá</th>
+                                            <th>Thể loại</th>
+                                            <th>Thao tác</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="dssp">
+                                        <tr style="display: none">
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <button class="btn btn-success" id="addToCart">Thêm vào giỏ</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Form add user-->
+
+        <!-- Form pay-->
+        <div id="formPay" class="hidden">
+            <div class="panel-content1">
+                <span id="closePanel">&times;</span>
+                <div class="form-title">Hóa đơn</div>
+                <div class="d-flex justify-content-center">
+                    <div class="col-lg-12">
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="dataTables" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th>Tên sản phẩm</th>
+                                            <th>Hình ảnh</th>
+                                            <th>Giá</th>
+                                            <th>Số lượng</th>
+                                            <th>Thành tiền</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="dsdh">
+                                        <tr style="display: none">
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="total-price" style="text-align: left;">
+                    <div><strong style="font-size: x-large;">Tổng tiền: <span id="total">0 ₫</span></strong>
+                        <div style="float: right; margin-right: 50px">
+                            <button href="" class="btn btn-info" id="thanh-toan"
+                                onclick="createTheBill('Đang xử lý', 'Đặt hàng')">ĐẶT HÀNG</button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- pay-->
+    </div>
+
+    <div id="jquery">
+        <script th:src="@{/js/order.js}"></script>
+    </div>
+</body>
+
+</html>

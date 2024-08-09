@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+    th:replace="~{/admin/layout/layout::layout(~{::title}, ~{::#main}, ~{::#jquery})}">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Tổng hợp chi phí và nguyên liệu</title>
+</head>
+
+<body>
+    <div id="main">
+        <!-- DataTales Example -->
+        <div class="card shadow mb-4">
+            <div class="card-header d-flex">
+                <div class="col-md-12">
+                    <h3 class="m-0 font-weight-bold text-primary">Danh sách chi phí và nguyên liệu</h3>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>STT</th>
+                                <th>Tên nguyên liệu</th>
+                                <th>Giá tiền</th>
+                                <th>Số lượng</th>
+                                <th>Đơn vị</th>
+                                <th>Thời gian</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>In menu</td>
+                                <td>10.000 đ</td>
+                                <td></td>
+                                <td></td>
+                                <td>Trước ngày 9/7/2024</td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>Cốt bí đao</td>
+                                <td>280.000 đ</td>
+                                <td>2</td>
+                                <td>chai</td>
+                                <td>Trước ngày 9/7/2024</td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td>Đường</td>
+                                <td>31.000 đ</td>
+                                <td>1</td>
+                                <td>kilogram</td>
+                                <td>Trước ngày 9/7/2024</td>
+                            </tr>
+                            <tr>
+                                <td>4</td>
+                                <td>Standee</td>
+                                <td>130.000 đ</td>
+                                <td></td>
+                                <td></td>
+                                <td>Trước ngày 9/7/2024</td>
+                            </tr>
+                            <tr>
+                                <td>5</td>
+                                <td>Muối hảo hảo</td>
+                                <td>54.000 đ</td>
+                                <td>4</td>
+                                <td>bịch</td>
+                                <td>Trước ngày 9/7/2024</td>
+                            </tr>
+                            <tr>
+                                <td>6</td>
+                                <td>Bánh tráng chấm</td>
+                                <td>260.000 đ</td>
+                                <td>40</td>
+                                <td>gói</td>
+                                <td>Trước ngày 9/7/2024</td>
+                            </tr>
+                            <tr>
+                                <td>7</td>
+                                <td>Mua bao bì + chai lần 1</td>
+                                <td>75.000 đ</td>
+                                <td>30</td>
+                                <td>gói</td>
+                                <td>Trước ngày 9/7/2024</td>
+                            </tr>
+                            <tr>
+                                <td>8</td>
+                                <td>Mèo yêu cá</td>
+                                <td>40.000 đ</td>
+                                <td>30</td>
+                                <td>gói</td>
+                                <td>Trước ngày 9/7/2024</td>
+                            </tr>
+
+<!---------------------------------------------------------->
+
+                            <tr>
+                                <td>9</td>
+                                <td>Xoài</td>
+                                <td>93.000 đ</td>
+                                <td>13</td>
+                                <td>kilogram</td>
+                                <td>9/7/2024</td>
+                            </tr>
+                            <tr>
+                                <td>10</td>
+                                <td>Sữa đậu</td>
+                                <td>50.000 đ</td>
+                                <td>11</td>
+                                <td>bịch</td>
+                                <td>9/7/2024</td>
+                            </tr>
+                            <tr>
+                                <td>11</td>
+                                <td>Đá</td>
+                                <td>25.000 đ</td>
+                                <td>1</td>
+                                <td>bao</td>
+                                <td>9/7/2024</td>
+                            </tr>
+                            <tr>
+                                <td>12</td>
+                                <td>Bao bì lần 2</td>
+                                <td>36.000 đ</td>
+                                <td></td>
+                                <td>gói</td>
+                                <td>9/7/2024</td>
+                            </tr>
+                            <tr>
+                                <td>13</td>
+                                <td>Mèo yêu cá</td>
+                                <td>80.000 đ</td>
+                                <td>40</td>
+                                <td>gói</td>
+                                <td>9/7/2024</td>
+                            </tr>
+
+<!------------------------------------------------->
+
+                            <tr>
+                                <td>14</td>
+                                <td>Đá</td>
+                                <td>15.000 đ</td>
+                                <td>1</td>
+                                <td>bao</td>
+                                <td>11/7/2024</td>
+                            </tr>
+                            <tr>
+                                <td>15</td>
+                                <td>Sữa đậu</td>
+                                <td>40.000 đ</td>
+                                <td>9</td>
+                                <td>bịch</td>
+                                <td>11/7/2024</td>
+                            </tr>
+                            <tr>
+                                <td>16</td>
+                                <td>Xoài</td>
+                                <td>24.000 đ</td>
+                                <td>1</td>
+                                <td>kilogram</td>
+                                <td>11/7/2024</td>
+                            </tr>
+                            <tr>
+                                <td>17</td>
+                                <td>Bánh tráng chấm</td>
+                                <td>130.000 đ</td>
+                                <td>20</td>
+                                <td>gói</td>
+                                <td>11/7/2024</td>
+                            </tr>
+                            <tr>
+                                <td>18</td>
+                                <td>Mèo yêu cá</td>
+                                <td>80.000 đ</td>
+                                <td>40</td>
+                                <td>gói</td>
+                                <td>11/7/2024</td>
+                            </tr>
+                            <tr>
+                                <td>19</td>
+                                <td>Đường</td>
+                                <td>15.000 đ</td>
+                                <td>1</td>
+                                <td>bịch</td>
+                                <td>11/7/2024</td>
+                            </tr>
+                            <tr>
+                                <td>20</td>
+                                <td>Bao bì lần 3</td>
+                                <td>4.000 đ</td>
+                                <td></td>
+                                <td>bịch</td>
+                                <td>11/7/2024</td>
+                            </tr>
+                            <tr>
+                                <td>21</td>
+                                <td>Bánh tráng chấm</td>
+                                <td>65.000 đ</td>
+                                <td>10</td>
+                                <td>gói</td>
+                                <td>11/7/2024</td>
+                            </tr>
+
+<!---------------------------------------------->
+
+                            <tr>
+                                <td>22</td>
+                                <td>Đá</td>
+                                <td>20.000 đ</td>
+                                <td>1</td>
+                                <td>bao</td>
+                                <td>13/7/2024</td>
+                            </tr>
+                            <tr>
+                                <td>23</td>
+                                <td>Sữa đậu</td>
+                                <td>125.000 đ</td>
+                                <td>6</td>
+                                <td>bịch</td>
+                                <td>13/7/2024</td>
+                            </tr>
+                            <tr>
+                                <td>24</td>
+                                <td>Xoài</td>
+                                <td>45.000 đ</td>
+                                <td>2</td>
+                                <td>kilogram</td>
+                                <td>13/7/2024</td>
+                            </tr>
+                            <tr>
+                                <td>25</td>
+                                <td>Bao bì lần 3</td>
+                                <td>48.000 đ</td>
+                                <td></td>
+                                <td>gói</td>
+                                <td>13/7/2024</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="card-footer">
+                <div class="total-price" style="text-align: left;">
+                    <p><strong>Tổng tiền: <span id="totalPrice">1.675.000 đ</span></strong>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="jquery">
+    </div>
+</body>
+
+</html>

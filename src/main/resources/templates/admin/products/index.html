@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+    th:replace="~{/admin/layout/layout::layout(~{::title}, ~{::#main}, ~{::#jquery})}">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Danh sách sản phẩm</title>
+</head>
+
+<body>
+    <div id="main">
+        <!-- DataTales Example -->
+        <div class="card shadow mb-4">
+            <div class="card-header d-flex">
+                <div class="col-md-9">
+                    <h3 class="m-0 font-weight-bold text-primary">Danh sách sản phẩm</h3>
+                </div>
+                <div class="col-md-3">
+                    <button class="btn btn-success" id="addProduct">Thêm sản phẩm</button>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>STT</th>
+                                <th>Tên sản phẩm</th>
+                                <th>Hình ảnh</th>
+                                <th>Giá</th>
+                                <th>Thể loại</th>
+                                <th>Thao tác</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="display: none">
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="card-footer">
+                <div class="total-revenue" style="text-align: left;">
+                    <p>
+                        <strong>Tổng sản phẩm: <span id="totalProduct"></span></strong>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Form add product-->
+        <div id="addUserPanel" class="hidden">
+            <div class="panel-content">
+                <span id="closePanelBtn">&times;</span>
+                <div class="form-title create">Thêm Sản phẩm</div>
+                <div class="form-title update">Cập nhật Sản phẩm</div>
+                <div class="d-flex justify-content-center">
+                    <div class="col-lg-12">
+                        <form role="form" method="post" id="form_create_update" enctype="multipart/form-data">
+                            <div class="panel-body row">
+                                <div class="col-md-6">
+
+                                    <input type="hidden" name="id" id="id" readonly="readonly"
+                                        style="width: 100%; height: auto;">
+
+                                    <label for="name" class="col-md-4">Tên sản phẩm: </label>
+                                    <input type="text" name="name" id="name" placeholder="Tên sản phẩm" class="col-md-6"
+                                        style="width: 100%; height: auto;">
+                                    <br><br>
+                                    <label for="price" class="col-md-4">Giá tiền: </label>
+                                    <input type="number" name="price" id="price" min="0" style="width: 100%;"
+                                        placeholder="Giá tiền" class="col-md-6">
+                                    <br><br>
+
+                                    <label for="img" class="col-md-4">Chọn hình: </label>
+                                    <input type="file" name="image" id="img" style="width: 100%;" class="col-md-6">
+
+                                    <div class="images ms-5" id="chon-anh">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="description" class="col-md-4">Mô tả: </label>
+                                    <textarea rows="4" cols="12" class="col-md-6" name="description" id="description"
+                                        style="width: 100%;"></textarea>
+                                    <br><br>
+
+                                    <label class="col-md-4">Loại sản phẩm</label>
+                                    <select class=" col-md-6" id="categories">
+                                        <option value="1">Nước uống</option>
+                                        <option value="2">Trái cây</option>
+                                        <option value="3">Đồ ăn vặt</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="panel-footer text-right">
+                                <button type="submit" class="btn btn-success create" id="create"
+                                    onclick="create_updateProduct('/honeyshop/api/products','POST', 'Thêm')">
+                                    Thêm mới</button>
+                                <button type="submit" class="btn btn-success update" id="update"
+                                    onclick="create_updateProduct('/honeyshop/api/products','PUT', 'Cập nhật')">
+                                    Cập nhật</button>
+                                <button type="reset" class="btn btn-danger">Reset</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!-- End Form add user-->
+        </div>
+    </div>
+
+    <div id="jquery">
+        <script th:src="@{/js/product.js}"></script>
+    </div>
+</body>
+
+</html>

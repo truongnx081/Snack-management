@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{/admin/layout/layout::layout(~{::title}, ~{::#main}, ~{::#jquery})}">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Hiệu suất bán hàng</title>
+</head>
+
+<body>
+<div id="main">
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-header d-flex">
+            <div class="col-md-12">
+                <h3 class="m-0 font-weight-bold text-primary">Danh sách hiệu suất bán hàng</h3>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                    <tr>
+                        <th>STT</th>
+                        <th>Nhân viên</th>
+                        <th>Số lượng đơn hàng</th>
+                        <th>Doanh thu</th>
+                        <th>Lần tạo đơn gần nhất</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <!-- Dữ liệu sẽ được thêm bởi DataTables -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="card-footer">
+            <div class="total-revenue" style="text-align: left;">
+                <p>
+                    <strong>Tổng doanh thu: <span id="totalRevenue">0 đ</span></strong><br>
+                    <strong>Tổng số lượng đơn hàng bán được: <span id="totalOrders">0</span></strong>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="jquery">
+    <script>
+        $(document).ready(function() {
+            // Nếu DataTable đã được khởi tạo, hãy hủy khởi tạo trước khi tiếp tục
+            if ($.fn.DataTable.isDataTable('#dataTable')) {
+                $('#dataTable').DataTable().clear().destroy();
+            }
+
+            // Khởi tạo DataTable
+            $('#dataTable').DataTable({
+                "ajax": {
+                    "url": "/honeyshop/api/report/employee-performance", // URL của API để lấy dữ liệu
+                    "type": "GET",
+                    "dataSrc": function (json) {
+                        let totalRevenue = 0;
+                        let totalOrders = 0;
+                        json.forEach(item => {
+                            totalRevenue += parseFloat(item.totalRevenue) || 0
+                            totalOrders += parseFloat(item.totalOrders) || 0
+                        });
+                        $('#totalRevenue').text(formatCurrencyVND(totalRevenue));
+                        $('#totalOrders').text(totalOrders);
+
+                        // Chuyển đổi dữ liệu từ API thành định dạng DataTables
+                        return json.map(function (item, index) {
+                            return [
+                                index + 1, // STT
+                                item.employeeName,
+                                item.totalOrders,
+                                item.totalRevenue.toLocaleString('vi-VN') + ' đ',
+                                item.lastOrderDate ? new Date(item.lastOrderDate).toLocaleString('vi-VN') : '' // Lần tạo đơn gần nhất
+                            ];
+                        });
+                    }
+                },
+                "columns": [
+                    { "title": "STT" },
+                    { "title": "Nhân viên" },
+                    { "title": "Số lượng đơn hàng" },
+                    { "title": "Doanh thu" },
+                    { "title": "Lần tạo đơn gần nhất" }
+                ],
+                processing: true,
+                serverSide: false,
+                paging: true,
+                searching: true,
+                ordering: true,
+                info: true
+            });
+        });
+    </script>
+</div>
+</body>
+
+</html>
